@@ -3,10 +3,9 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace Chatroom.Core.Hubs
 {
-
-    public class GeneralChatHub : Hub, IChatHub
+    public class SportChatHub : Hub, IChatHub
     {
-        public static string Address => "/chat-general";
+        public static string Address => "/chat-sport";
 
         public async Task SendMessage(string user, string message, DateTime time)
         {

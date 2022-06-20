@@ -22,7 +22,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 builder.Services.AddSingleton<WeatherForecastService>();
-builder.Services.AddResponseCompression(opts => {
+builder.Services.AddResponseCompression(opts =>
+{
     opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[] { "application/octet-stream" });
 });
 
@@ -53,7 +54,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.MapBlazorHub();
-app.MapHub<GeneralChatHub>(GeneralChatHub.ADDRESS);
+app.MapHub<GeneralChatHub>(GeneralChatHub.Address);
+app.MapHub<SportChatHub>(SportChatHub.Address);
 app.MapFallbackToPage("/_Host");
 
 app.Run();
