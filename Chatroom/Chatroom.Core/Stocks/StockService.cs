@@ -5,16 +5,21 @@ using System.Net;
 
 namespace Chatroom.Core.Stocks
 {
-    public class StockService
+    public interface IStockService
+    {
+        StockInfo GetStock(string stockCode);
+    }
+
+    public class StockService : IStockService
     {
         private readonly IConfiguration configuration;
-        private string StooqUrl {  get { return configuration["Stooq"]; } }
+        private string StooqUrl { get { return configuration["Stooq"]; } }
 
         public StockService(IConfiguration configuration)
         {
             this.configuration = configuration;
         }
-        
+
         public StockInfo GetStock(string stockCode)
         {
             StockInfo? stockInfo;

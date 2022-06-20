@@ -1,10 +1,19 @@
-﻿namespace Chatroom.Core.Stocks
-{
-    public class StockBot
-    {
-        private readonly StockService stockService;
+﻿using System.Globalization;
 
-        public StockBot(StockService stockService)
+namespace Chatroom.Core.Stocks
+{
+    public interface IStockBot
+    {
+        string GetStock(string stockCode);
+    }
+
+    public class StockBot : IStockBot
+    {
+        private readonly IStockService stockService;
+
+        private readonly CultureInfo cultureUSA = new CultureInfo("en-us");
+
+        public StockBot(IStockService stockService)
         {
             this.stockService = stockService;
         }
@@ -14,11 +23,11 @@
             try
             {
                 var stock = stockService.GetStock(stockCode);
-                return $"{stockCode.ToUpper()} quote is {stock.PriceClose:c} per share.";
+                return $"{stockCode.ToUpper()} quote is {stock.PriceClose.ToString("c", cultureUSA)} per share.";
             }
             catch (Exception)
             {
-                return "Stock not found";
+                return "Stock not found.";
             }
         }
     }

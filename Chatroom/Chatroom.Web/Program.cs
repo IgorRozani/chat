@@ -53,7 +53,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.MapBlazorHub();
-app.MapHub<GeneralChatHub>("/chat-general");
+app.MapHub<GeneralChatHub>(GeneralChatHub.ADDRESS);
 app.MapFallbackToPage("/_Host");
 
 app.Run();
