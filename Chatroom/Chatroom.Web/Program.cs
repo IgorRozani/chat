@@ -1,3 +1,4 @@
+using Chatroom.Core.Hubs;
 using Chatroom.Web.Areas.Identity;
 using Chatroom.Web.Data;
 using Microsoft.AspNetCore.Components;
@@ -5,6 +6,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,8 +22,13 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddResponseCompression(opts => {
+    opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[] { "application/octet-stream" });
+});
 
 var app = builder.Build();
+
+app.UseResponseCompression();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -46,6 +53,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.MapBlazorHub();
+app.MapHub<GeneralChatHub>("/chat-general");
 app.MapFallbackToPage("/_Host");
 
 app.Run();
