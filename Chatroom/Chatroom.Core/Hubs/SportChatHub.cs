@@ -1,11 +1,10 @@
-﻿using Chatroom.Core.Hubs.Interface;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 
 namespace Chatroom.Core.Hubs
 {
-    public class SportChatHub : Hub, IChatHub
+    public class SportChatHub : Hub
     {
-        public static string Address => "/chat-sport";
+        public const string ADDRESS = "/chat-sport";
 
         public async Task SendMessage(string user, string message, DateTime time)
         {
