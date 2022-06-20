@@ -1,23 +1,32 @@
 ﻿using CsvHelper;
+using Microsoft.Extensions.Configuration;
 using System.Globalization;
 using System.Net;
 
 namespace Chatroom.Core.Stocks
 {
-    internal class StockService
+    public class StockService
     {
+        private readonly IConfiguration configuration;
+        private string StooqUrl {  get { return configuration["Stooq"]; } }
+
+        public StockService(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
+        
         public StockInfo GetStock(string stockCode)
         {
-            StockInfo stockInfo;
+            StockInfo? stockInfo;
             var client = new WebClient();
-            var csvFile = client.DownloadData($"https://stooq.com/q/l/?s={stockCode}&f=sd2t2ohlcv&h&e=csv");
+            var csvFile = client.DownloadData(string.Format(StooqUrl, stockCode));
 
-            using (var reader = new MemoryStream(csvFile))
-            using (var reader2 = new StreamReader(reader))
-            using (var csv = new CsvReader(reader2, CultureInfo.InvariantCulture))
+            using (var memoryStream = new MemoryStream(csvFile))
+            using (var streamReader = new StreamReader(memoryStream))
+            using (var csvReader = new CsvReader(streamReader, CultureInfo.InvariantCulture))
             {
-                var records = csv.GetRecords<StockInfo>().ToList();
-                stockInfo = records[0];
+                var records = csvReader.GetRecords<StockInfo>().ToList();
+                stockInfo = records.FirstOrDefault();
             }
 
             return stockInfo;
