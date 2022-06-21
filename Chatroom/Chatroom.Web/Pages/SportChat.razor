@@ -1,6 +1,8 @@
 ﻿@page "/sport"
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 @attribute [Authorize]
 
 <PageTitle>Sport Chat</PageTitle>
 
-<Chat ChatUrl="/chat-sport" />
+<Chat ChatUrl="@Configuration["Chat:Sport"]" />

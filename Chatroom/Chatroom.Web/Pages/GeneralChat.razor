@@ -1,6 +1,8 @@
 ﻿@page "/general"
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 @attribute [Authorize]
 
 <PageTitle>General Chat</PageTitle>
 
-<Chat ChatUrl="/chat-general" />
+<Chat ChatUrl="@Configuration["Chat:General"]" />

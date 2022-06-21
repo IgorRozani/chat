@@ -56,8 +56,11 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.MapBlazorHub();
-app.MapHub<GeneralChatHub>(GeneralChatHub.ADDRESS);
-app.MapHub<SportChatHub>(SportChatHub.ADDRESS);
+
+var generalUrl = builder.Configuration["Chat:General"];
+var sportUrl = builder.Configuration["Chat:Sport"];
+app.MapHub<GeneralChatHub>(generalUrl);
+app.MapHub<SportChatHub>(sportUrl);
 app.MapFallbackToPage("/_Host");
 
 app.Run();
