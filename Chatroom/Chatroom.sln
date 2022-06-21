@@ -5,9 +5,9 @@ VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chatroom.Web", "Chatroom.Web\Chatroom.Web.csproj", "{021DDE9C-3E57-4EF3-8BA3-F494C3CABBBD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatroom.Core", "Chatroom.Core\Chatroom.Core.csproj", "{A9A3401D-8980-45EC-9DC5-67A0DF272A0E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chatroom.Core", "Chatroom.Core\Chatroom.Core.csproj", "{A9A3401D-8980-45EC-9DC5-67A0DF272A0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatroom.Test", "Chatroom.Test\Chatroom.Test.csproj", "{8EB97FE1-12C7-4108-BDB4-D42662749B23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chatroom.Test", "Chatroom.Test\Chatroom.Test.csproj", "{8EB97FE1-12C7-4108-BDB4-D42662749B23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
