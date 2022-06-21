@@ -39,7 +39,7 @@
         hubConnection = new HubConnectionBuilder().WithUrl(NavigationManager.ToAbsoluteUri("/chat-general")).Build();
         hubConnection.On<string, string, DateTime>("ReceiveMessage", (user, message, time) =>
         {
-            messages.Add(new ChatMessage { SentDate = time, Text = $"{user} - {time:g}: {message}" });
+            messages.Add(new ChatMessage { SentDate = time, Text = $"{user} {time:g}: {message}" });
             InvokeAsync(StateHasChanged);
         });
 
@@ -58,7 +58,7 @@
                 var stockCode = messageInput.Split('=').LastOrDefault();
                 var message = stockBot.GetStock(stockCode);
                 var date = DateTime.Now;
-                messages.Add(new ChatMessage { SentDate = date, Text = $"Stock bot: {message}" });
+                messages.Add(new ChatMessage { SentDate = date, Text = $"Stock bot {date:g}: {message}" });
             }
             else
             {
@@ -67,6 +67,8 @@
                 await hubConnection.SendAsync("SendMessage", user, messageInput, DateTime.Now);
             }
         }
+
+        messageInput = string.Empty;
     }
 
     public bool IsConnected =>

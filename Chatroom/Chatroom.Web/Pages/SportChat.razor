@@ -39,7 +39,7 @@
         hubConnection = new HubConnectionBuilder().WithUrl(NavigationManager.ToAbsoluteUri("/chat-sport")).Build();
         hubConnection.On<string, string, DateTime>("ReceiveMessage", (user, message, time) =>
         {
-            messages.Add(new ChatMessage { SentDate = time, Text = $"{user} - {time:g}: {message}" });
+            messages.Add(new ChatMessage { SentDate = time, Text = $"{user} {time:g}: {message}" });
             InvokeAsync(StateHasChanged);
         });
 
