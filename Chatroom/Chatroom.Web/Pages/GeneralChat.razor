@@ -53,19 +53,21 @@
 
         if (hubConnection is not null)
         {
+            string user, message;
+            DateTime date = DateTime.Now;
             if (messageInput.StartsWith("/stock"))
             {
                 var stockCode = messageInput.Split('=').LastOrDefault();
-                var message = stockBot.GetStock(stockCode);
-                var date = DateTime.Now;
-                messages.Add(new ChatMessage { SentDate = date, Text = $"Stock bot {date:g}: {message}" });
+                message = stockBot.GetStock(stockCode);
+                user = "Stock bot";
             }
             else
             {
                 var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-                var user = authState.User?.Identity?.Name;
-                await hubConnection.SendAsync("SendMessage", user, messageInput, DateTime.Now);
+                user = authState.User?.Identity?.Name;
+                message = messageInput;
             }
+            await hubConnection.SendAsync("SendMessage", user, message, date);
         }
 
         messageInput = string.Empty;
